@@ -7,6 +7,10 @@ import android.view.KeyEvent;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +34,21 @@ public class MainActivity extends AppCompatActivity {
     private class BrowserDemoWebViewClient extends WebViewClient{
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
-            view.loadUrl(request.getUrl().toString());
+            try{
+                URL targetURL = new URL(request.getUrl().toString());
+                if(targetURL.getHost().equalsIgnoreCase(url)){
+                    view.loadUrl(targetURL.toString());
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),
+                            "Sorry you can't leave google.com",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+            catch(MalformedURLException e){
+                e.printStackTrace();
+            }
             return true;
         }
     }
