@@ -3,7 +3,9 @@ package com.example.comp1786lecture6demobrowser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
         browser.getSettings().setBuiltInZoomControls(true);
 
+        browser.setWebViewClient(new BrowserDemoWebViewClient());
+
         browser.loadUrl(url);
+    }
+    private class BrowserDemoWebViewClient extends WebViewClient{
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
+            view.loadUrl(request.getUrl().toString());
+            return true;
+        }
     }
 }
