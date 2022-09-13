@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
             try{
                 URL targetURL = new URL(request.getUrl().toString());
-                if(targetURL.getHost().equalsIgnoreCase(url)){
+                String hostURL = "https://" + targetURL.getHost() + "/";
+                if(hostURL.equalsIgnoreCase(url)){
                     view.loadUrl(targetURL.toString());
                 }
                 else{
