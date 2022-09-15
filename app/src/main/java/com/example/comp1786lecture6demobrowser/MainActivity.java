@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WebView browser;
 
-    private final String url = "https://www.google.com/";
+    private final String url = "https://www.google.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
             try{
                 URL targetURL = new URL(request.getUrl().toString());
-                String hostURL = "https://" + targetURL.getHost() + "/";
+                String hostURL = targetURL.getProtocol() + "://" + targetURL.getHost();
                 if(hostURL.equalsIgnoreCase(url)){
                     view.loadUrl(targetURL.toString());
                 }
